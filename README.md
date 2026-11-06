@@ -12,23 +12,25 @@ composants libres** qu'elles embarquent. Le code de JMedia lui-même n'y est pas
 
 ## Installer
 
-- **Compte JMedia** : créez-le sur [account.jmedia.cc](https://account.jmedia.cc). Il sert à associer vos
-  serveurs, à vous connecter et à partager vos bibliothèques avec vos amis.
-- **Serveur Linux ou hébergement mutualisé, sans Docker** : connectez-vous au serveur en SSH
-  (`ssh <utilisateur>@<adresse-du-serveur>`, identifiants donnés par votre hébergeur ; sous Windows, depuis
-  PowerShell ou le Terminal), puis lancez sur le serveur, avec le lien de l'archive de la
-  [dernière version](https://github.com/juan5987/jmedia-releases/releases) :
+**Première fois ? Suivez le [guide d'installation pas à pas](INSTALLATION.md)** : il explique tout, de
+l'ouverture d'un terminal jusqu'à l'association du serveur à votre compte, sans connaissance préalable.
 
-  ```bash
-  wget <lien de l'archive jmedia-<version>-linux-x86_64.tar.gz>
-  tar xzf jmedia-<version>-linux-x86_64.tar.gz -C ~
-  ~/jmedia/bin/jmedia install
-  ```
+En bref, pour qui connaît déjà SSH :
 
-  Renseignez le dossier de vos médias (`MEDIA_LIBRARY_PATH`) dans le fichier que l'installeur indique,
-  relancez `~/jmedia/bin/jmedia install`, ouvrez l'adresse affichée et associez le serveur à votre compte.
-- **NAS ou Docker** : image `ghcr.io/juan5987/jmedia` (amd64), avec le fichier `compose.yaml` fourni dans
-  les notes de chaque version.
+1. Créez votre compte sur [account.jmedia.cc](https://account.jmedia.cc).
+2. Connectez-vous à votre serveur Linux en SSH, puis lancez, avec le lien de l'archive de la
+   [dernière version](https://github.com/juan5987/jmedia-releases/releases) :
+
+   ```bash
+   wget <lien de l'archive jmedia-<version>-linux-x86_64.tar.gz>
+   tar xzf jmedia-<version>-linux-x86_64.tar.gz -C ~ && ~/jmedia/bin/jmedia install
+   ```
+
+3. Indiquez le dossier de vos vidéos quand l'installation le demande, puis ouvrez le lien d'association
+   affiché à la fin.
+
+Sur un NAS ou avec Docker : image `ghcr.io/juan5987/jmedia` (amd64), avec le fichier `compose.yaml`
+décrit dans les notes de chaque version.
 
 ## Licences et sources
 
