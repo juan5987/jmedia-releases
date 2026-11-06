@@ -57,7 +57,7 @@ serveur**.
 Copiez-collez cette commande, puis **Entrée** (une barre de progression s'affiche, environ 150 Mo) :
 
 ```bash
-wget https://github.com/juan5987/jmedia-releases/releases/download/v0.1.1/jmedia-0.1.1-linux-x86_64.tar.gz
+wget https://github.com/juan5987/jmedia-releases/releases/download/v0.1.2/jmedia-0.1.2-linux-x86_64.tar.gz
 ```
 
 ## Étape 4 : installer JMedia
@@ -65,14 +65,15 @@ wget https://github.com/juan5987/jmedia-releases/releases/download/v0.1.1/jmedia
 Copiez-collez cette commande, puis **Entrée** :
 
 ```bash
-tar xzf jmedia-0.1.1-linux-x86_64.tar.gz -C ~ && ~/jmedia/bin/jmedia install
+tar xzf jmedia-0.1.2-linux-x86_64.tar.gz -C ~ && ~/jmedia/bin/jmedia install
 ```
 
-L'installation affiche quelques lignes, puis vous pose **une question** :
+L'installation vous pose **une seule question** :
 
 ```
-Un seul dossier ici : celui qui contient vos films et vos series. Les bibliotheques se choisissent ensuite dans JMedia.
-Dans quel dossier sont vos videos ? [Entree pour /home/marie/media]
+Où sont vos films et vos séries ?
+Indiquez le dossier qui les contient : vous choisirez ensuite vos bibliothèques dans JMedia.
+Dossier des vidéos [Entrée pour /home/marie/media] :
 ```
 
 - Si le dossier proposé entre crochets est le bon, appuyez simplement sur **Entrée**.
@@ -83,18 +84,24 @@ Dans quel dossier sont vos videos ? [Entree pour /home/marie/media]
 
 ## Étape 5 : associer le serveur à votre compte
 
-À la fin de l'installation, le terminal affiche :
+JMedia démarre (jusqu'à une minute), puis le terminal affiche :
 
 ```
-Associez ce serveur a votre compte JMedia en ouvrant ce lien (valable 10 minutes) : https://account.jmedia.cc/serveurs/associer?code=ABCD-EFGH
-Ensuite, votre serveur : https://<adresse de votre serveur JMedia>
+Dernière étape : associez ce serveur à votre compte JMedia.
+Ouvrez ce lien dans votre navigateur (valable 10 minutes) :
+
+    https://account.jmedia.cc/serveurs/associer?code=ABCD-EFGH
+
+Votre serveur JMedia sera ensuite à cette adresse :
+
+    https://<adresse de votre serveur JMedia>
 ```
 
 1. **Ouvrez le lien d'association** : sélectionnez-le, copiez-le et collez-le dans votre navigateur (dans
    certains terminaux, **Ctrl + clic** l'ouvre directement).
 2. Connectez-vous à votre compte JMedia si besoin : le code est **déjà rempli**. Donnez un nom à votre
    serveur, puis validez.
-3. **Ouvrez votre serveur** à l'adresse donnée sur la ligne « Ensuite, votre serveur », puis cliquez sur
+3. **Ouvrez votre serveur** à l'adresse affichée sous « Votre serveur JMedia sera ensuite à cette adresse », puis cliquez sur
    **Se connecter avec JMedia**.
 4. Choisissez vos bibliothèques : le premier scan démarre et vos films apparaissent au fur et à mesure.
 
@@ -116,7 +123,7 @@ Vous pouvez fermer la connexion au serveur en tapant `exit` puis **Entrée** : J
 ## Mettre à jour JMedia
 
 Quand une nouvelle version sort, connectez-vous au serveur (étape 2) puis lancez, en remplaçant
-`<version>` par son numéro (par exemple `0.1.2`) :
+`<version>` par son numéro (par exemple `0.1.3`) :
 
 ```bash
 wget https://github.com/juan5987/jmedia-releases/releases/download/v<version>/jmedia-<version>-linux-x86_64.tar.gz
