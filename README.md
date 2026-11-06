@@ -26,8 +26,8 @@ En bref, pour qui connaît déjà SSH :
    tar xzf jmedia-<version>-linux-x86_64.tar.gz -C ~ && ~/jmedia/bin/jmedia install
    ```
 
-3. Indiquez le dossier de vos vidéos quand l'installation le demande, puis ouvrez le lien d'association
-   affiché à la fin.
+3. Ouvrez le lien d'association affiché à la fin, puis votre serveur : choisissez-y les dossiers de
+   vos films et séries.
 
 Sur un NAS ou avec Docker : image `ghcr.io/juan5987/jmedia` (amd64), avec le fichier `compose.yaml`
 décrit dans les notes de chaque version.
