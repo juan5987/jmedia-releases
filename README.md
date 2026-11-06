@@ -14,10 +14,13 @@ composants libres** qu'elles embarquent. Le code de JMedia lui-même n'y est pas
 
 - **Compte JMedia** : créez-le sur [account.jmedia.cc](https://account.jmedia.cc). Il sert à associer vos
   serveurs, à vous connecter et à partager vos bibliothèques avec vos amis.
-- **Serveur Linux ou hébergement mutualisé, sans Docker** : téléchargez l'archive de la
-  [dernière version](https://github.com/juan5987/jmedia-releases/releases), puis :
+- **Serveur Linux ou hébergement mutualisé, sans Docker** : connectez-vous au serveur en SSH
+  (`ssh <utilisateur>@<adresse-du-serveur>`, identifiants donnés par votre hébergeur ; sous Windows, depuis
+  PowerShell ou le Terminal), puis lancez sur le serveur, avec le lien de l'archive de la
+  [dernière version](https://github.com/juan5987/jmedia-releases/releases) :
 
   ```bash
+  wget <lien de l'archive jmedia-<version>-linux-x86_64.tar.gz>
   tar xzf jmedia-<version>-linux-x86_64.tar.gz -C ~
   ~/jmedia/bin/jmedia install
   ```
