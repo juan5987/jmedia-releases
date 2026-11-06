@@ -1,0 +1,71 @@
+LICENCE D'UTILISATION DE JMEDIA (pre-version 0.1.0)
+
+1. Titulaire
+
+JMedia (le serveur, son interface web, ses scripts d'installation et de lancement) est un
+logiciel propriete de Juan Machado (ci-apres « l'editeur »). Tous les droits non concedes par la
+presente licence sont reserves.
+
+2. Licence concedee
+
+L'editeur concede a toute personne qui obtient une copie de cette pre-version une licence non
+exclusive, non transferable et gratuite, pour la duree de la protection, d'installer et
+d'utiliser JMedia, sur autant de machines qu'elle le souhaite, a des fins personnelles et non
+commerciales. Cette licence porte sur la pre-version 0.1.0 telle qu'elle est distribuee par
+l'editeur ; elle ne donne aucun droit sur les versions suivantes, qui pourront etre soumises a
+d'autres conditions.
+
+Sauf dans les cas prevus par la loi ou au paragraphe 4, il est interdit de vendre, louer ou
+sous-licencier JMedia, ou de le redistribuer sous une forme modifiee.
+
+3. Composants tiers
+
+JMedia redistribue des logiciels de tiers (FFmpeg, OpenJDK, Caddy, bibliotheques Java et
+JavaScript, et dans l'image Docker les paquets d'Ubuntu). Chacun reste soumis a sa propre
+licence, dont le texte figure dans le dossier LICENSES/ de l'archive, dans
+/usr/share/doc/jmedia/LICENSES/ de l'image Docker, et sous licences/ de l'interface web de
+JMedia. Pour ces composants, leur licence prime sur la presente licence, qui ne restreint aucun
+des droits qu'elle accorde. L'editeur ne revendique aucun droit sur ces composants.
+
+En particulier, JMedia utilise des bibliotheques du projet FFmpeg (https://ffmpeg.org) sous la
+GNU Lesser General Public License, version 2.1 ou ulterieure, et les outils ffmpeg et ffprobe
+sous la GNU General Public License, version 2 ou ulterieure. FFmpeg est une marque de Fabrice
+Bellard, createur du projet FFmpeg. Les sources de ces composants sont publiees avec chaque
+version (voir FFmpeg.txt).
+
+4. Modification des bibliotheques LGPL et ingenierie inverse
+
+Vous pouvez remplacer les bibliotheques libav* fournies avec JMedia par une version que vous avez
+modifiee ou recompilee, pour votre propre usage, selon la recette fournie avec leurs sources
+(BUILD-FFMPEG.md et layout.c). Aucune disposition de la presente licence n'interdit, ni ne limite,
+la modification de JMedia pour votre propre usage dans ce but, ni l'ingenierie inverse
+necessaire au debogage de telles modifications, conformement a la section 6 de la GNU Lesser
+General Public License, version 2.1. Les droits que vous reconnaissent les articles L122-6 et
+L122-6-1 du code de la propriete intellectuelle (notamment l'observation, l'etude et la
+decompilation a des fins d'interoperabilite) sont egalement preserves.
+
+5. Contenus
+
+Vous etes seul responsable des fichiers que vous indexez, lisez et partagez avec JMedia, et du
+respect des droits de leurs auteurs. JMedia n'en fournit aucun.
+
+6. Services en ligne
+
+Le compte JMedia (https://account.jmedia.cc) et le service de metadonnees utilise pendant le scan
+sont regis par leurs propres conditions d'utilisation. Les fiches et les images obtenues de TMDB
+restent soumises aux conditions de TMDB.
+
+7. Absence de garantie
+
+Cette pre-version est fournie « en l'etat », pour test, sans garantie d'aucune sorte, expresse ou
+implicite, notamment de bon fonctionnement, d'adequation a un usage particulier ou d'absence de
+defaut. Dans toute la mesure permise par la loi applicable, l'editeur ne peut etre tenu
+responsable d'aucun dommage resultant de son utilisation, notamment d'une perte de donnees. Rien
+dans la presente licence ne limite les droits que la loi garantit aux consommateurs.
+
+8. Droit applicable
+
+La presente licence est soumise au droit francais. Tout litige releve des tribunaux francais
+competents, sous reserve des regles imperatives applicables aux consommateurs.
+
+Contact : contact@jmedia.cc
