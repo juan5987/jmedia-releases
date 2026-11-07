@@ -57,7 +57,7 @@ serveur**.
 Copiez-collez cette commande, puis **Entrée** (une barre de progression s'affiche, environ 150 Mo) :
 
 ```bash
-wget https://github.com/juan5987/jmedia-releases/releases/download/v0.1.9/jmedia-0.1.9-linux-x86_64.tar.gz
+wget https://github.com/juan5987/jmedia-releases/releases/download/v0.1.11/jmedia-0.1.11-linux-x86_64.tar.gz
 ```
 
 ## Étape 4 : installer JMedia
@@ -65,7 +65,7 @@ wget https://github.com/juan5987/jmedia-releases/releases/download/v0.1.9/jmedia
 Copiez-collez cette commande, puis **Entrée** :
 
 ```bash
-tar xzf jmedia-0.1.9-linux-x86_64.tar.gz -C ~ && ~/jmedia/bin/jmedia install
+tar xzf jmedia-0.1.11-linux-x86_64.tar.gz -C ~ && ~/jmedia/bin/jmedia install
 ```
 
 Il n'y a rien à répondre : JMedia s'installe et démarre tout seul, en une minute environ. Vous
@@ -118,7 +118,7 @@ Vous pouvez fermer la connexion au serveur en tapant `exit` puis **Entrée** : J
 ## Mettre à jour JMedia
 
 Quand une nouvelle version sort, connectez-vous au serveur (étape 2) puis lancez, en remplaçant
-`<version>` par son numéro (par exemple `0.1.10`) :
+`<version>` par son numéro (par exemple `0.1.11`) :
 
 ```bash
 wget https://github.com/juan5987/jmedia-releases/releases/download/v<version>/jmedia-<version>-linux-x86_64.tar.gz
