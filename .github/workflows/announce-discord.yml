@@ -1,0 +1,61 @@
+# Annonce chaque version publiee sur le serveur Discord de JMedia : Nouveautes dans #features,
+# Corrections dans #fixes. Lancement a la main possible pour une version deja publiee (une version
+# deja annoncee dans un salon n'y est pas reannoncee). Secrets du depot : DISCORD_TOKEN et GUILD_ID,
+# les memes que le .env du bot jmedia_bot_discord.
+name: Annonce Discord
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Version a annoncer (par exemple v0.1.15)
+        required: true
+      dry_run:
+        description: Afficher les messages sans les envoyer
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: announce-discord
+  cancel-in-progress: false
+
+jobs:
+  announce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/scripts
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Tests du script
+        run: node --test .github/scripts/announce-discord.test.mjs
+
+      - name: Notes de la version lancee a la main
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+        run: |
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json tagName,url,body > release.json
+          node -e '
+            const r = require("./release.json");
+            require("fs").writeFileSync("notes.md", r.body);
+            require("fs").appendFileSync(process.env.GITHUB_ENV,
+              `NOTES_FILE=notes.md\nRELEASE_VERSION=${r.tagName.replace(/^v/, "")}\nRELEASE_URL=${r.url}\n`);
+          '
+
+      - name: Annonce
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          DISCORD_GUILD_ID: ${{ secrets.GUILD_ID }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
+        run: node .github/scripts/announce-discord.mjs
