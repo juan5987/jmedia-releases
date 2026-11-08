@@ -52,7 +52,49 @@ Vous êtes connecté quand la ligne du terminal commence par votre nom d'utilisa
 par exemple `marie@mon-serveur:~$`. Toutes les commandes suivantes s'exécutent désormais **sur le
 serveur**.
 
-## Étape 3 : télécharger JMedia
+## Méthode recommandée : en un copier-coller
+
+### Étape 3 : obtenir la commande
+
+1. Sur [account.jmedia.cc](https://account.jmedia.cc), connecté à votre compte, ouvrez **Mes serveurs**,
+   puis cliquez sur **Ajouter un serveur**.
+2. Donnez un nom à ce serveur (par exemple « Maison »), puis cliquez sur **Obtenir la commande**.
+3. Cliquez sur **Copier** : la commande est dans votre presse-papiers.
+
+Laissez la page ouverte : elle attend votre serveur et vous préviendra dès qu'il sera prêt.
+
+### Étape 4 : coller la commande dans le terminal
+
+Dans le terminal connecté au serveur, collez la commande, puis **Entrée**. Elle ressemble à :
+
+```bash
+curl -fsSL https://account.jmedia.cc/install.sh | sh -s -- --jeton ABCD1234EFGH5678
+```
+
+Une barre de progression s'affiche (environ 150 Mo) : JMedia se télécharge, vérifie son archive,
+s'installe et s'associe tout seul. Comptez deux ou trois minutes, sans rien à répondre. Le jeton de
+la commande ne sert qu'une fois et vaut 30 minutes ; s'il a expiré, la page en donne une nouvelle.
+
+À la fin, le terminal affiche `Serveur associé à votre compte JMedia : retournez sur la page du compte
+pour l'ouvrir.`, puis le code de secours, qui ouvre l'administration sans le compte JMedia.
+
+### Étape 5 : ouvrir votre serveur et ajouter vos bibliothèques
+
+1. Revenez sur la page du compte : elle affiche **Votre serveur « Maison » est prêt**, avec un bouton
+   **Ouvrir JMedia**. Cliquez dessus. Si vous avez fermé la page, ouvrez
+   [account.jmedia.cc](https://account.jmedia.cc), **Mes serveurs**, puis votre serveur.
+2. Connectez-vous avec votre compte JMedia si besoin, puis **ajoutez vos bibliothèques** : cliquez sur
+   **Ajouter une bibliothèque**, donnez-lui un nom (par exemple « Films ») et son type, puis cliquez sur
+   **Ajouter un dossier**. Le sélecteur s'ouvre sur votre dossier personnel : cliquez sur les dossiers
+   pour descendre jusqu'à celui de vos films, puis sur **Choisir ce dossier**, et enfin **Créer la
+   bibliothèque**. Faites de même pour vos séries.
+3. Le premier scan démarre et vos films apparaissent au fur et à mesure.
+
+Vous pouvez fermer la connexion au serveur en tapant `exit` puis **Entrée** : JMedia continue de tourner.
+
+## Méthode manuelle : l'archive
+
+### Étape 3 : télécharger JMedia
 
 Copiez-collez cette commande, puis **Entrée** (une barre de progression s'affiche, environ 150 Mo) :
 
@@ -60,7 +102,7 @@ Copiez-collez cette commande, puis **Entrée** (une barre de progression s'affic
 wget https://github.com/juan5987/jmedia-releases/releases/download/v0.1.13/jmedia-0.1.13-linux-x86_64.tar.gz
 ```
 
-## Étape 4 : installer JMedia
+### Étape 4 : installer JMedia
 
 Copiez-collez cette commande, puis **Entrée** :
 
@@ -71,7 +113,7 @@ tar xzf jmedia-0.1.13-linux-x86_64.tar.gz -C ~ && ~/jmedia/bin/jmedia install
 Il n'y a rien à répondre : JMedia s'installe et démarre tout seul, en une minute environ. Vous
 choisirez vos dossiers de films et de séries plus tard, à la souris, dans JMedia.
 
-## Étape 5 : associer le serveur à votre compte
+### Étape 5 : associer le serveur à votre compte
 
 À la fin de l'installation, le terminal affiche :
 
@@ -107,6 +149,9 @@ Vous pouvez fermer la connexion au serveur en tapant `exit` puis **Entrée** : J
 - **Le lien d'association a expiré ou a disparu** : reconnectez-vous au serveur (étape 2), puis tapez
   `~/jmedia/bin/jmedia status` : un nouveau lien s'affiche. Vous pouvez aussi ouvrir votre serveur, puis
   **Paramètres → Compte JMedia**.
+- **La commande a expiré, ou le serveur ne se montre pas sur la page « Ajouter un serveur »** : la page
+  en donne une nouvelle (un jeton ne sert qu'une fois, 30 minutes). L'installation, elle, n'a pas besoin
+  d'être refaite : `~/jmedia/bin/jmedia status` affiche le lien d'association habituel.
 - **`ssh` n'est pas reconnu (Windows)** : installez le client OpenSSH dans
   **Paramètres → Applications → Fonctionnalités facultatives**, ou utilisez le Terminal de Windows 11.
 - **`Permission denied`** à la connexion : le nom d'utilisateur, l'adresse ou le mot de passe est
