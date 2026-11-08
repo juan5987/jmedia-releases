@@ -1,7 +1,8 @@
 // Annonce une version publiee dans les salons Discord de la communaute JMedia : la rubrique
 // « Nouveautes » des notes part dans #features, la rubrique « Corrections » dans #fixes. Le message
 // est envoye avec le jeton du bot JMedia (projet jmedia_bot_discord), qui peut ecrire dans ces
-// salons reserves. Une version deja annoncee dans un salon n'y est pas reannoncee.
+// salons reserves. Une version deja annoncee dans un salon n'y est pas reannoncee ; si ses notes ont
+// change depuis, ses messages sont corriges sur place.
 
 import { readFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
@@ -77,6 +78,21 @@ export function announcementMessages({ version, url, title, items }) {
   return messages;
 }
 
+/**
+ * Ce qu'il faut faire d'une annonce, d'apres les messages que le bot a deja publies pour cette version
+ * dans le salon (du plus ancien au plus recent) : publier, ne rien faire, corriger sur place (meme
+ * nombre de messages, l'ordre du salon est garde), ou remplacer (nombre different).
+ */
+export function announcementAction(existing, messages) {
+  if (existing.length === 0) {
+    return 'post';
+  }
+  if (existing.length !== messages.length) {
+    return 'replace';
+  }
+  return existing.every((content, index) => content === messages[index]) ? 'unchanged' : 'edit';
+}
+
 function truncate(text, limit) {
   return text.length <= limit ? text : `${text.slice(0, limit - 1)}…`;
 }
@@ -104,12 +120,19 @@ async function discord(token, method, path, body) {
   if (!response.ok) {
     throw new Error(`Discord ${method} ${path} : HTTP ${response.status} ${await response.text()}`);
   }
-  return response.json();
+  return response.status === 204 ? null : response.json();
 }
 
-async function alreadyAnnounced(token, channelId, version) {
+/** Messages deja publies par le bot pour cette version, du plus ancien au plus recent. */
+async function previousAnnouncement(token, channelId, botId, version) {
   const recent = await discord(token, 'GET', `/channels/${channelId}/messages?limit=${HISTORY_SCANNED}`);
-  return recent.some((message) => message.content.startsWith(announcementMarker(version)));
+  return recent
+    .filter((message) => message.author?.id === botId && message.content.startsWith(announcementMarker(version)))
+    .reverse();
+}
+
+function messageBody(content) {
+  return { content, allowed_mentions: { parse: [] }, flags: SUPPRESS_EMBEDS };
 }
 
 async function readRelease() {
@@ -156,22 +179,31 @@ async function main() {
   }
 
   const token = required('DISCORD_TOKEN');
+  const bot = await discord(token, 'GET', '/users/@me');
   const channels = channelsByName(await discord(token, 'GET', `/guilds/${required('DISCORD_GUILD_ID')}/channels`));
   for (const step of plan) {
     const channelId = channels.get(step.channel);
     if (channelId === undefined) {
       throw new Error(`Salon #${step.channel} introuvable dans la catégorie ${CATEGORY_NAME}`);
     }
-    if (await alreadyAnnounced(token, channelId, release.version)) {
-      console.log(`#${step.channel} : JMedia ${release.version} déjà annoncée`);
+    const previous = await previousAnnouncement(token, channelId, bot.id, release.version);
+    const action = announcementAction(previous.map((message) => message.content), step.messages);
+    if (action === 'unchanged') {
+      console.log(`#${step.channel} : JMedia ${release.version} déjà annoncée, inchangée`);
       continue;
     }
+    if (action === 'edit') {
+      for (const [index, message] of previous.entries()) {
+        await discord(token, 'PATCH', `/channels/${channelId}/messages/${message.id}`, messageBody(step.messages[index]));
+      }
+      console.log(`#${step.channel} : annonce de JMedia ${release.version} corrigée (${step.messages.length} message(s))`);
+      continue;
+    }
+    for (const message of previous) {
+      await discord(token, 'DELETE', `/channels/${channelId}/messages/${message.id}`);
+    }
     for (const content of step.messages) {
-      await discord(token, 'POST', `/channels/${channelId}/messages`, {
-        content,
-        allowed_mentions: { parse: [] },
-        flags: SUPPRESS_EMBEDS,
-      });
+      await discord(token, 'POST', `/channels/${channelId}/messages`, messageBody(content));
     }
     console.log(`#${step.channel} : JMedia ${release.version} annoncée (${step.messages.length} message(s))`);
   }

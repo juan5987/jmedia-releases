@@ -1,6 +1,6 @@
 # Annonce chaque version publiee sur le serveur Discord de JMedia : Nouveautes dans #features,
 # Corrections dans #fixes. Lancement a la main possible pour une version deja publiee (une version
-# deja annoncee dans un salon n'y est pas reannoncee). Secrets du depot : DISCORD_TOKEN et GUILD_ID,
+# deja annoncee dans un salon y est corrigee sur place si ses notes ont change). Secrets du depot : DISCORD_TOKEN et GUILD_ID,
 # les memes que le .env du bot jmedia_bot_discord.
 name: Annonce Discord
 

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import {
   SECTIONS,
+  announcementAction,
   announcementMarker,
   announcementMessages,
   channelsByName,
@@ -96,4 +97,15 @@ test('finds the text channels of the JMedia category by name', () => {
   ];
 
   assert.deepEqual([...channelsByName(channels)], [['features', 'f'], ['fixes', 'x']]);
+});
+
+test('posts a first announcement, leaves an identical one, edits a changed one in place', () => {
+  assert.equal(announcementAction([], ['a']), 'post');
+  assert.equal(announcementAction(['a', 'b'], ['a', 'b']), 'unchanged');
+  assert.equal(announcementAction(['sans accents'], ['avec accents']), 'edit');
+});
+
+test('replaces an announcement whose number of messages changed', () => {
+  assert.equal(announcementAction(['a'], ['a', 'b']), 'replace');
+  assert.equal(announcementAction(['a', 'b'], ['a']), 'replace');
 });
