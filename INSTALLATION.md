@@ -75,29 +75,44 @@ Une barre de progression s'affiche (environ 150 Mo) : JMedia se télécharge, v�
 s'installe et s'associe tout seul. Comptez deux ou trois minutes, sans rien à répondre. Le jeton de
 la commande ne sert qu'une fois et vaut 30 minutes ; s'il a expiré, la page en donne une nouvelle.
 
-À la fin, le terminal affiche `Serveur associé à votre compte JMedia : retournez sur la page du compte
-pour l'ouvrir.`, puis le code de secours, qui ouvre l'administration sans le compte JMedia. Sur un serveur
-chez vous ou un VPS, il rappelle aussi le port à ouvrir : `redirigez le port <N>, en TCP et en UDP, de
-votre box vers cette machine` (voir [Serveur chez vous : rediriger un port de la box](#serveur-chez-vous--rediriger-un-port-de-la-box)).
+À la fin, le terminal affiche :
 
-### Étape 5 : ouvrir votre serveur et ajouter vos bibliothèques
+```
+Serveur associé à votre compte JMedia : retournez sur la page du compte pour l'ouvrir.
+
+Ouvrez JMedia à cette adresse ; vos bibliothèques de films et de séries se créent dans l'application :
+
+    https://app.jmedia.cc
+
+Adresse de ce serveur, que l'application JMedia joint (inutile de l'ouvrir) :
+
+    https://<adresse de votre serveur JMedia>
+```
+
+Sur un serveur chez vous ou un VPS, il rappelle aussi le port à ouvrir : `redirigez le port <N>, en TCP
+et en UDP, de votre box vers cette machine` (voir [Serveur chez vous : rediriger un port de la box](#serveur-chez-vous--rediriger-un-port-de-la-box)).
+
+### Étape 5 : ouvrir JMedia et ajouter vos bibliothèques
 
 1. Revenez sur la page du compte : elle affiche **Votre serveur « Maison » démarre…**, puis, dès que le
    serveur a contacté JMedia, **Votre serveur « Maison » est prêt**, avec un bouton **Ouvrir JMedia**.
-   Cliquez dessus. Si vous avez fermé la page, ouvrez [account.jmedia.cc](https://account.jmedia.cc),
-   **Mes serveurs**, puis votre serveur. Si la page indique **Votre serveur n'est pas joignable depuis
-   Internet**, redirigez le port qu'elle donne depuis votre box (voir
+   Cliquez dessus : il ouvre l'application JMedia, où votre serveur figure dans la barre latérale. Si
+   vous avez fermé la page, ouvrez directement [app.jmedia.cc](https://app.jmedia.cc). Si la page du
+   compte indique **Votre serveur n'est pas joignable depuis Internet**, redirigez le port qu'elle donne
+   depuis votre box (voir
    [Serveur chez vous : rediriger un port de la box](#serveur-chez-vous--rediriger-un-port-de-la-box)),
    puis cliquez sur **Revérifier**.
-2. Connectez-vous avec votre compte JMedia si besoin, puis **ajoutez vos bibliothèques** : cliquez sur
-   **Ajouter une bibliothèque**, donnez-lui un nom (par exemple « Films ») et son type, puis cliquez sur
+2. **Ajoutez vos bibliothèques** dans les paramètres du serveur : dans la barre latérale, sous le nom de
+   votre serveur, cliquez sur **Paramètres**, puis, dans la section **Bibliothèques**, sur
+   **Ajouter une bibliothèque**. Donnez-lui un nom (par exemple « Films ») et son type, puis cliquez sur
    **Ajouter un dossier**. Le sélecteur s'ouvre sur votre dossier personnel : cliquez sur les dossiers
    pour descendre jusqu'à celui de vos films, puis sur **Choisir ce dossier**, et enfin **Créer la
    bibliothèque**. Faites de même pour vos séries.
    Si vos vidéos sont ailleurs (un NAS ou un disque monté sous `/mnt` ou `/media`, par exemple),
    remontez avec **Dossier parent** ou en cliquant sur `/` dans le chemin, ou collez le chemin du dossier
    dans le champ du haut puis cliquez sur **Ouvrir**.
-3. Le premier scan démarre et vos films apparaissent au fur et à mesure.
+3. **Lancez le premier scan** : cliquez sur **Lancer un scan**, juste sous vos bibliothèques. Vos films
+   apparaissent au fur et à mesure ; **Voir la progression** montre où en est le scan.
 
 Vous pouvez fermer la connexion au serveur en tapant `exit` puis **Entrée** : JMedia continue de tourner.
 
@@ -153,7 +168,7 @@ tar xzf jmedia-0.1.18-linux-x86_64.tar.gz -C ~ && ~/jmedia/bin/jmedia install
 ```
 
 Il n'y a rien à répondre : JMedia s'installe et démarre tout seul, en une minute environ. Vous
-choisirez vos dossiers de films et de séries plus tard, à la souris, dans JMedia.
+choisirez vos dossiers de films et de séries plus tard, à la souris, dans l'application JMedia.
 
 ### Étape 5 : associer le serveur à votre compte
 
@@ -165,27 +180,37 @@ Ouvrez ce lien dans votre navigateur (valable 10 minutes) :
 
     https://account.jmedia.cc/serveurs/associer?code=ABCD-EFGH
 
-Votre serveur JMedia sera ensuite à cette adresse :
+Une fois le serveur associé, ouvrez JMedia à cette adresse ; vos bibliothèques de films et de séries se créent dans l'application :
+
+    https://app.jmedia.cc
+
+Adresse de ce serveur, que l'application JMedia joint (inutile de l'ouvrir) :
 
     https://<adresse de votre serveur JMedia>
-
-Puis connectez-vous et choisissez les dossiers de vos films et séries.
 ```
+
+Sur un serveur chez vous ou un VPS, le terminal ajoute une ligne qui commence par `Une fois le serveur
+associé, relancez « ~/jmedia/bin/jmedia install »` : faites-le juste après le point 2 ci-dessous, pour
+que l'application puisse joindre votre serveur depuis Internet.
 
 1. **Ouvrez le lien d'association** : sélectionnez-le, copiez-le et collez-le dans votre navigateur (dans
    certains terminaux, **Ctrl + clic** l'ouvre directement).
 2. Connectez-vous à votre compte JMedia si besoin : le code est **déjà rempli**. Donnez un nom à votre
    serveur, puis validez.
-3. **Ouvrez votre serveur** à l'adresse affichée sous « Votre serveur JMedia sera ensuite à cette adresse », puis cliquez sur
-   **Se connecter avec JMedia**.
-4. **Ajoutez vos bibliothèques** : cliquez sur **Ajouter une bibliothèque**, donnez-lui un nom (par
-   exemple « Films ») et son type, puis cliquez sur **Ajouter un dossier**. Le sélecteur s'ouvre sur
-   votre dossier personnel : cliquez sur les dossiers pour descendre jusqu'à celui de vos films, puis sur
-   **Choisir ce dossier**, et enfin **Créer la bibliothèque**. Faites de même pour vos séries.
+3. **Ouvrez JMedia** : une fois le serveur prêt, la page du compte affiche **Ouvrir JMedia**. Ce bouton
+   ouvre l'application JMedia, où votre serveur figure dans la barre latérale. Si vous avez fermé la
+   page, ouvrez directement [app.jmedia.cc](https://app.jmedia.cc).
+4. **Ajoutez vos bibliothèques** dans les paramètres du serveur : dans la barre latérale, sous le nom de
+   votre serveur, cliquez sur **Paramètres**, puis, dans la section **Bibliothèques**, sur
+   **Ajouter une bibliothèque**. Donnez-lui un nom (par exemple « Films ») et son type, puis cliquez sur
+   **Ajouter un dossier**. Le sélecteur s'ouvre sur votre dossier personnel : cliquez sur les dossiers
+   pour descendre jusqu'à celui de vos films, puis sur **Choisir ce dossier**, et enfin **Créer la
+   bibliothèque**. Faites de même pour vos séries.
    Si vos vidéos sont ailleurs (un NAS ou un disque monté sous `/mnt` ou `/media`, par exemple),
    remontez avec **Dossier parent** ou en cliquant sur `/` dans le chemin, ou collez le chemin du dossier
    dans le champ du haut puis cliquez sur **Ouvrir**.
-5. Le premier scan démarre et vos films apparaissent au fur et à mesure.
+5. **Lancez le premier scan** : cliquez sur **Lancer un scan**, juste sous vos bibliothèques. Vos films
+   apparaissent au fur et à mesure ; **Voir la progression** montre où en est le scan.
 
 Sur un serveur chez vous, redirigez aussi depuis votre box le port affiché à la fin de l'installation
 (voir [Serveur chez vous : rediriger un port de la box](#serveur-chez-vous--rediriger-un-port-de-la-box)).
@@ -195,8 +220,7 @@ Vous pouvez fermer la connexion au serveur en tapant `exit` puis **Entrée** : J
 ## En cas de problème
 
 - **Le lien d'association a expiré ou a disparu** : reconnectez-vous au serveur (étape 2), puis tapez
-  `~/jmedia/bin/jmedia status` : un nouveau lien s'affiche. Vous pouvez aussi ouvrir votre serveur, puis
-  **Paramètres → Compte JMedia**.
+  `~/jmedia/bin/jmedia status` : un nouveau lien s'affiche.
 - **La commande a expiré, ou le serveur ne se montre pas sur la page « Ajouter un serveur »** : la page
   en donne une nouvelle (un jeton ne sert qu'une fois, 30 minutes). L'installation, elle, n'a pas besoin
   d'être refaite : `~/jmedia/bin/jmedia status` affiche le lien d'association habituel.
@@ -204,8 +228,9 @@ Vous pouvez fermer la connexion au serveur en tapant `exit` puis **Entrée** : J
   **Paramètres → Applications → Fonctionnalités facultatives**, ou utilisez le Terminal de Windows 11.
 - **`Permission denied`** à la connexion : le nom d'utilisateur, l'adresse ou le mot de passe est
   inexact. Vérifiez les informations de votre hébergeur.
-- **L'adresse de votre serveur JMedia ne s'ouvre pas** : si **Mes serveurs** indique que le serveur n'est
-  pas joignable depuis Internet, redirigez son port depuis votre box (voir
+- **L'application JMedia affiche « Ce serveur ne répond pas »** : si **Mes serveurs**, sur
+  [account.jmedia.cc](https://account.jmedia.cc), indique que le serveur n'est pas joignable depuis
+  Internet, redirigez son port depuis votre box (voir
   [Serveur chez vous : rediriger un port de la box](#serveur-chez-vous--rediriger-un-port-de-la-box)).
   Sinon, tapez `~/jmedia/bin/jmedia status` pour vérifier
   que JMedia tourne, puis `~/jmedia/bin/jmedia logs` pour voir ses derniers messages. Écrivez-nous à
@@ -230,6 +255,8 @@ Vos réglages, votre bibliothèque et votre association au compte sont conservé
 
 Sur un NAS (Synology, QNAP, Unraid…), JMedia s'installe avec l'image Docker `ghcr.io/juan5987/jmedia`
 depuis l'interface Docker du NAS. Le lien d'association s'affiche dans les journaux du conteneur, ou avec
-`docker exec jmedia cat /data/pairing-link`. Un guide détaillé pour chaque NAS est en préparation. Pour
-l'ouvrir depuis Internet, la box doit rediriger vers le NAS, en TCP et en UDP, le port publié pour
-l'adresse publique du conteneur (443, ou 8421 quand le NAS garde 443 pour lui).
+`docker exec jmedia cat /data/pairing-link`. Une fois le serveur associé, tout se fait dans
+l'application JMedia, à l'adresse [app.jmedia.cc](https://app.jmedia.cc) : vos bibliothèques s'y créent
+dans les paramètres du serveur. Un guide détaillé pour chaque NAS est en préparation. Pour que
+l'application joigne votre NAS depuis Internet, la box doit rediriger vers lui, en TCP et en UDP, le
+port publié pour l'adresse publique du conteneur (443, ou 8421 quand le NAS garde 443 pour lui).
