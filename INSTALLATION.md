@@ -146,7 +146,7 @@ La box doit rediriger **le même numéro** que celui du serveur. Si elle n'accep
 
 Redirigez ensuite ce port depuis la box, puis cliquez sur **Revérifier**.
 
-Chez un hébergeur (seedbox, VPS), il n'y a pas de box : le port doit simplement être ouvert dans son
+Chez un hébergeur (serveur dédié, VPS), il n'y a pas de box : le port doit simplement être ouvert dans son
 pare-feu s'il en a un.
 
 ## Méthode manuelle : l'archive
@@ -156,7 +156,7 @@ pare-feu s'il en a un.
 Copiez-collez cette commande, puis **Entrée** (une barre de progression s'affiche, environ 150 Mo) :
 
 ```bash
-wget https://github.com/juan5987/jmedia-releases/releases/download/v0.1.18/jmedia-0.1.18-linux-x86_64.tar.gz
+wget https://github.com/juan5987/jmedia-releases/releases/download/v0.2.0/jmedia-0.2.0-linux-x86_64.tar.gz
 ```
 
 ### Étape 4 : installer JMedia
@@ -164,7 +164,7 @@ wget https://github.com/juan5987/jmedia-releases/releases/download/v0.1.18/jmedi
 Copiez-collez cette commande, puis **Entrée** :
 
 ```bash
-tar xzf jmedia-0.1.18-linux-x86_64.tar.gz -C ~ && ~/jmedia/bin/jmedia install
+tar xzf jmedia-0.2.0-linux-x86_64.tar.gz -C ~ && ~/jmedia/bin/jmedia install
 ```
 
 Il n'y a rien à répondre : JMedia s'installe et démarre tout seul, en une minute environ. Vous
@@ -238,8 +238,14 @@ Vous pouvez fermer la connexion au serveur en tapant `exit` puis **Entrée** : J
 
 ## Mettre à jour JMedia
 
-Quand une nouvelle version sort, connectez-vous au serveur (étape 2) puis lancez, en remplaçant
-`<version>` par son numéro (par exemple `0.1.18`) :
+Le plus simple : dans l'application JMedia, ouvrez **Paramètres serveur**, section **Mise à jour**, puis
+cliquez sur **Mettre à jour vers …**. JMedia sauvegarde sa base, installe la nouvelle version et remet
+l'ancienne en place si la nouvelle ne démarre pas.
+
+À la main, arrêtez d'abord JMedia (`~/jmedia/bin/jmedia stop`) et copiez le dossier de sa base
+(`cp -r ~/.local/share/jmedia/db ~/jmedia-db-sauvegarde`) :
+certaines versions, comme la 0.2.0, modifient la base sans retour possible. Connectez-vous ensuite au
+serveur (étape 2) puis lancez, en remplaçant `<version>` par son numéro (par exemple `0.2.0`) :
 
 ```bash
 wget https://github.com/juan5987/jmedia-releases/releases/download/v<version>/jmedia-<version>-linux-x86_64.tar.gz
