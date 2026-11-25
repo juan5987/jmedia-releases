@@ -1,12 +1,12 @@
-# Annonce chaque version publiee sur le serveur Discord de JMedia : Nouveautes dans #features,
-# Corrections dans #fixes. Lancement a la main possible pour une version deja publiee (une version
-# deja annoncee dans un salon y est corrigee sur place si ses notes ont change). Secrets du depot : DISCORD_TOKEN et GUILD_ID,
-# les memes que le .env du bot jmedia_bot_discord.
+# Annonce une version sur le serveur Discord de JMedia : Nouveautes dans #features, Corrections
+# dans #fixes. Lancement a la main uniquement, en toute derniere etape du deploiement, une fois la
+# mise a jour reellement disponible (le service central annonce la version) : publier la release
+# ne declenche rien. Une version deja annoncee dans un salon y est corrigee sur place si ses notes
+# ont change. Secrets du depot : DISCORD_TOKEN et GUILD_ID, les memes que le .env du bot
+# jmedia_bot_discord.
 name: Annonce Discord
 
 on:
-  release:
-    types: [published]
   workflow_dispatch:
     inputs:
       tag:
