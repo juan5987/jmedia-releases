@@ -149,6 +149,46 @@ Redirigez ensuite ce port depuis la box, puis cliquez sur **Revérifier**.
 Chez un hébergeur (serveur dédié, VPS), il n'y a pas de box : le port doit simplement être ouvert dans son
 pare-feu s'il en a un.
 
+## Accès depuis le réseau de la maison
+
+Certaines box ne savent pas renvoyer vers la maison une connexion à leur propre adresse publique : depuis
+un ordinateur branché sur la même box que le serveur, l'application affiche alors que le serveur est
+injoignable, alors qu'il répond depuis Internet. Depuis la version 0.3.0, l'application joint aussi le
+serveur par le réseau de la maison, sans passer par la box, ce qui rend aussi le démarrage des vidéos plus
+rapide.
+
+Sur un serveur chez vous installé avec l'archive ou la commande du compte, il n'y a rien à régler :
+JMedia détecte son adresse sur le réseau de la maison (par exemple `192.168.1.24`) et la signale à votre
+compte JMedia toutes les cinq minutes. Seuls vous et les amis avec qui vous partagez une bibliothèque
+reçoivent cette adresse. Il faut que :
+
+- le port de JMedia (celui de la redirection de la box) soit ouvert sur la machine, en TCP et en UDP,
+  pare-feu compris ;
+- la machine garde la même adresse sur le réseau de la maison : dans l'interface de la box, réservez-lui
+  son adresse (souvent « bail DHCP statique » ou « adresse IP fixe »). Si elle change, JMedia la signale
+  de nouveau dans les cinq minutes.
+
+Dans le navigateur :
+
+- Chrome et Edge demandent l'autorisation d'accéder au réseau local. Si le serveur ne répond pas par son
+  adresse publique, l'application propose le bouton **Se connecter par le réseau local** : cliquez dessus,
+  puis acceptez la demande du navigateur. Ensuite, l'application essaie les deux adresses d'elle-même.
+- Si vous avez refusé, autorisez l'accès au réseau local pour `app.jmedia.cc` dans les réglages du site,
+  ouverts depuis l'icône à gauche de la barre d'adresse.
+- Si aucune adresse ne répond alors que l'accès est autorisé, la box peut le bloquer. Dans ses réglages,
+  autorisez `jmedia-server.cc` dans sa protection DNS (parfois appelée protection contre le « DNS
+  rebinding »), ou activez le « NAT loopback » s'il existe.
+
+Le réglage `JMEDIA_LOCAL_ADDRESSES` de la configuration (`~/.config/jmedia/jmedia.env`,
+`/etc/jmedia/jmedia.env` en root) choisit les adresses signalées : `auto` (détection, le choix par
+défaut), une liste d'adresses du réseau de la maison séparées par des virgules (4 au plus, par exemple
+`192.168.1.24`), ou vide pour n'en signaler aucune. Redémarrez JMedia après un changement
+(`~/jmedia/bin/jmedia stop` puis `~/jmedia/bin/jmedia start`). Chez un hébergeur qui publie JMedia sous sa propre adresse, il n'y a pas
+d'accès local : le serveur n'est pas chez vous.
+
+Avec Docker, voir [Installer sur un NAS (Docker)](#installer-sur-un-nas-docker) : rien n'est signalé sans
+adresse donnée.
+
 ## Méthode manuelle : l'archive
 
 ### Étape 3 : télécharger JMedia
@@ -156,7 +196,7 @@ pare-feu s'il en a un.
 Copiez-collez cette commande, puis **Entrée** (une barre de progression s'affiche, environ 150 Mo) :
 
 ```bash
-wget https://github.com/juan5987/jmedia-releases/releases/download/v0.2.0/jmedia-0.2.0-linux-x86_64.tar.gz
+wget https://github.com/juan5987/jmedia-releases/releases/download/v0.3.0/jmedia-0.3.0-linux-x86_64.tar.gz
 ```
 
 ### Étape 4 : installer JMedia
@@ -164,7 +204,7 @@ wget https://github.com/juan5987/jmedia-releases/releases/download/v0.2.0/jmedia
 Copiez-collez cette commande, puis **Entrée** :
 
 ```bash
-tar xzf jmedia-0.2.0-linux-x86_64.tar.gz -C ~ && ~/jmedia/bin/jmedia install
+tar xzf jmedia-0.3.0-linux-x86_64.tar.gz -C ~ && ~/jmedia/bin/jmedia install
 ```
 
 Il n'y a rien à répondre : JMedia s'installe et démarre tout seul, en une minute environ. Vous
@@ -244,8 +284,8 @@ l'ancienne en place si la nouvelle ne démarre pas.
 
 À la main, arrêtez d'abord JMedia (`~/jmedia/bin/jmedia stop`) et copiez le dossier de sa base
 (`cp -r ~/.local/share/jmedia/db ~/jmedia-db-sauvegarde`) :
-certaines versions, comme la 0.2.0, modifient la base sans retour possible. Connectez-vous ensuite au
-serveur (étape 2) puis lancez, en remplaçant `<version>` par son numéro (par exemple `0.2.0`) :
+certaines versions, comme la 0.2.0 et la 0.3.0, modifient la base sans retour possible. Connectez-vous ensuite au
+serveur (étape 2) puis lancez, en remplaçant `<version>` par son numéro (par exemple `0.3.0`) :
 
 ```bash
 wget https://github.com/juan5987/jmedia-releases/releases/download/v<version>/jmedia-<version>-linux-x86_64.tar.gz
@@ -266,3 +306,16 @@ l'application JMedia, à l'adresse [app.jmedia.cc](https://app.jmedia.cc) : vos 
 dans les paramètres du serveur. Un guide détaillé pour chaque NAS est en préparation. Pour que
 l'application joigne votre NAS depuis Internet, la box doit rediriger vers lui, en TCP et en UDP, le
 port publié pour l'adresse publique du conteneur (443, ou 8421 quand le NAS garde 443 pour lui).
+
+Pour l'[accès depuis le réseau de la maison](#accès-depuis-le-réseau-de-la-maison), le conteneur ne
+connaît pas l'adresse du NAS : donnez-la dans la variable `JMEDIA_LOCAL_ADDRESSES` du conteneur (dans
+`environment` du fichier `compose.yaml`, par exemple `JMEDIA_LOCAL_ADDRESSES: "192.168.1.24"`). C'est
+l'adresse du NAS sur le réseau de la maison, réservée sur la box pour qu'elle ne change pas, jamais celle
+du conteneur. Sans cette variable, rien n'est signalé. Le NAS doit aussi publier **le même port** que
+l'adresse publique, en TCP et en UDP :
+
+- avec le port 443 publié tel quel (`443:443` et `443:443/udp`), il n'y a rien d'autre à changer ;
+- avec la redirection `8421:443`, l'accès local ne fonctionne pas. Faites écouter le conteneur sur 8421 :
+  ajoutez `JMEDIA_PUBLIC_PORT: "8421"` dans `environment`, remplacez `8421:443` par `8421:8421` et
+  `8421:8421/udp` dans `ports`, retirez `JMEDIA_SERVER_ORIGIN` s'il fige un autre port, puis recréez le
+  conteneur. La box continue de rediriger son port 8421, en TCP et en UDP, vers le 8421 du NAS.
