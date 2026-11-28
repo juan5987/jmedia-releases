@@ -196,7 +196,7 @@ adresse donnée.
 Copiez-collez cette commande, puis **Entrée** (une barre de progression s'affiche, environ 150 Mo) :
 
 ```bash
-wget https://github.com/juan5987/jmedia-releases/releases/download/v0.3.0/jmedia-0.3.0-linux-x86_64.tar.gz
+wget https://github.com/juan5987/jmedia-releases/releases/download/v0.3.1/jmedia-0.3.1-linux-x86_64.tar.gz
 ```
 
 ### Étape 4 : installer JMedia
@@ -204,7 +204,7 @@ wget https://github.com/juan5987/jmedia-releases/releases/download/v0.3.0/jmedia
 Copiez-collez cette commande, puis **Entrée** :
 
 ```bash
-tar xzf jmedia-0.3.0-linux-x86_64.tar.gz -C ~ && ~/jmedia/bin/jmedia install
+tar xzf jmedia-0.3.1-linux-x86_64.tar.gz -C ~ && ~/jmedia/bin/jmedia install
 ```
 
 Il n'y a rien à répondre : JMedia s'installe et démarre tout seul, en une minute environ. Vous
@@ -285,7 +285,7 @@ l'ancienne en place si la nouvelle ne démarre pas.
 À la main, arrêtez d'abord JMedia (`~/jmedia/bin/jmedia stop`) et copiez le dossier de sa base
 (`cp -r ~/.local/share/jmedia/db ~/jmedia-db-sauvegarde`) :
 certaines versions, comme la 0.2.0 et la 0.3.0, modifient la base sans retour possible. Connectez-vous ensuite au
-serveur (étape 2) puis lancez, en remplaçant `<version>` par son numéro (par exemple `0.3.0`) :
+serveur (étape 2) puis lancez, en remplaçant `<version>` par son numéro (par exemple `0.3.1`) :
 
 ```bash
 wget https://github.com/juan5987/jmedia-releases/releases/download/v<version>/jmedia-<version>-linux-x86_64.tar.gz
